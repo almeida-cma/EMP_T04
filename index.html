@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual de Oslo | Inovação Sustentável e Empreendedorismo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0ea5e9;      /* azul inovação */
+      --primary-dark: #0284c7;
+      --primary-light: #bae6fd;
+      --secondary: #f59e0b;    /* laranja sustentabilidade */
+      --tertiary: #10b981;     /* verde equilíbrio */
+      --bg: #0c1a2b;
+      --card: #1e2f3f;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #8b5cf6;
+    }
+
+    * { 
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #0c1a2b 0%, #172c3c 100%);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Partículas de fundo temáticas – lâmpadas/átomos */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
+      animation: float 25s infinite linear;
+      background: var(--primary);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      50% { transform: translateY(-30px) rotate(180deg) scale(1.1); }
+    }
+
+    header {
+      padding: 4rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 50%, rgba(14,165,233,0.12), transparent 70%);
+      z-index: -1;
+    }
+
+    .title-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .main-title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    section {
+      max-width: 1300px;
+      margin: auto;
+      padding: 3rem 1.5rem;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(30, 47, 63, 0.9), rgba(12, 26, 43, 0.95));
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(14,165,233,0.2);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(14,165,233,0.25);
+      border-color: var(--primary);
+    }
+
+    .card-icon {
+      font-size: 2.7rem;
+      margin-bottom: 1.2rem;
+      color: var(--primary);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      border: none;
+      border-radius: 0.75rem;
+      padding: 1rem 2.2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(14,165,233,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    /* Manual de Oslo - caixa de destaque */
+    .oslo-box {
+      background: rgba(14,165,233,0.08);
+      border-left: 6px solid var(--primary);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .innovation-tag {
+      display: inline-block;
+      background: rgba(245,158,11,0.15);
+      border: 1px solid var(--secondary);
+      color: var(--secondary);
+      padding: 0.35rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-manual {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 2.5rem 0;
+    }
+
+    .timeline-node {
+      background: var(--card);
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--primary);
+      font-weight: 600;
+      color: var(--primary-light);
+    }
+
+    /* tipos de inovação - grid especial */
+    .innovation-types {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin: 2rem 0;
+    }
+
+    .type-card {
+      background: rgba(0,0,0,0.25);
+      padding: 1.5rem 1rem;
+      border-radius: 1rem;
+      text-align: center;
+      border-bottom: 3px solid transparent;
+      transition: 0.2s;
+    }
+
+    .type-card:hover {
+      border-bottom-color: var(--secondary);
+      background: rgba(245,158,11,0.1);
+    }
+
+    .type-icon {
+      font-size: 2rem;
+      margin-bottom: 0.7rem;
+      color: var(--secondary);
+    }
+
+    /* Características da inovação sustentável */
+    .sust-circle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .pill {
+      background: rgba(16,185,129,0.1);
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      border: 1px solid var(--tertiary);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Estatísticas e dados */
+    .stat-badge {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.03);
+      padding: 1rem;
+      border-radius: 1rem;
+      margin: 1rem 0;
+    }
+
+    .progress-bar-bg {
+      background: rgba(255,255,255,0.1);
+      height: 12px;
+      border-radius: 20px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .progress-fill {
+      height: 12px;
+      background: var(--primary);
+      width: 0%;
+    }
+
+    @media (max-width: 900px) {
+      .innovation-types {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .main-title { font-size: 2.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .innovation-types { grid-template-columns: 1fr; }
+      .timeline-manual { flex-direction: column; gap: 1rem; }
+    }
+
+    /* rotação manual interativa */
+    .edition-selector {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .edition-btn {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 0.75rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .edition-btn.active {
+      background: var(--primary);
+      color: #000;
+    }
+
+    /* Guia interativo - formulário de diagnóstico */
+    .diagnostic-card {
+      background: rgba(0,0,0,0.3);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--secondary);
+    }
+  </style>
+</head>
+<body>
+  <div id="particles"></div>
+
+  <header>
+    <div class="header-bg"></div>
+    <div class="title-container">
+      <h1 class="main-title">Manual de Oslo</h1>
+      <p class="subtitle">Inovação Sustentável & Empreendedorismo Responsável</p>
+      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <span class="innovation-tag">🌱 Economia circular</span>
+        <span class="innovation-tag">💡 Produto/Processo</span>
+        <span class="innovation-tag">📊 OCDE 4ª edição</span>
+        <span class="innovation-tag">⚖️ Equilíbrio ESG</span>
+      </div>
+      <p style="color: var(--muted); max-width: 800px; margin: 2rem auto 0; font-size: 1.1rem;">
+        Do conceito à métrica: como o Manual de Oslo orienta empreendedores a inovar com propósito, medir impacto e construir negócios que regeneram o planeta.
+      </p>
+    </div>
+  </header>
+
+  <!-- SEÇÃO 1: Empreendedorismo e Inovação Sustentável (conceito + relação) -->
+  <section>
+    <h2 class="section-title fade-in">🚀 Empreendedorismo + Inovação Sustentável</h2>
+    <div class="grid fade-in">
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3 style="color: var(--primary);">Empreendedorismo</h3>
+        <p style="margin: 0.75rem 0;">Identificar oportunidades, criar negócios, assumir riscos. É o motor da economia.</p>
+        <p style="margin-top: 0.5rem; color: var(--muted);">Quando direcionado à sustentabilidade, torna-se agente de transformação socioambiental.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">♻️</div>
+        <h3 style="color: var(--secondary);">Inovação Sustentável</h3>
+        <p style="margin: 0.75rem 0;">Soluções novas ou melhoradas que equilibram:</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem;">
+          <span style="background: rgba(14,165,233,0.2); padding: 0.3rem 0.8rem; border-radius: 30px;">💰 Econômica</span>
+          <span style="background: rgba(245,158,11,0.2); padding: 0.3rem 0.8rem; border-radius: 30px;">👥 Social</span>
+          <span style="background: rgba(16,185,129,0.2); padding: 0.3rem 0.8rem; border-radius: 30px;">🌍 Ambiental</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3 style="color: var(--accent);">União que transforma</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem;">✅ Soluções para mudança climática</li>
+          <li style="margin-bottom: 0.7rem;">✅ Novos mercados verdes</li>
+          <li style="margin-bottom: 0.7rem;">✅ Vantagem competitiva</li>
+          <li style="margin-bottom: 0.7rem;">✅ Atração de talentos com propósito</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Por que devem estar juntos? bullets com ícone -->
+    <div class="oslo-box fade-in" style="margin-top: 2.5rem;">
+      <h3 style="display: flex; align-items: center; gap: 0.5rem; color: var(--primary-light);"><i class="fas fa-link"></i> 7 razões estratégicas para unir empreendedorismo e inovação sustentável</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.2rem; margin-top: 1.8rem;">
+        <div><span style="color: var(--secondary); font-weight: 700;">01</span> Solução para desafios socioambientais</div>
+        <div><span style="color: var(--secondary); font-weight: 700;">02</span> Oportunidades de mercado em alta</div>
+        <div><span style="color: var(--secondary); font-weight: 700;">03</span> Competitividade e diferenciação</div>
+        <div><span style="color: var(--secondary); font-weight: 700;">04</span> Redução de custos (eficiência)</div>
+        <div><span style="color: var(--secondary); font-weight: 700;">05</span> Responsabilidade corporativa</div>
+        <div><span style="color: var(--secondary); font-weight: 700;">06</span> Atração de talentos engajados</div>
+        <div><span style="color: var(--secondary); font-weight: 700;">07</span> Legado positivo para futuras gerações</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2: Inovação Sustentável – características profundas -->
+  <section>
+    <h2 class="section-title fade-in">🌿 DNA da Inovação Sustentável</h2>
+    <div class="grid fade-in">
+      <div class="card">
+        <div class="card-icon">📉</div>
+        <h4>Minimização de impactos</h4>
+        <p>Menos recursos, menos resíduos, menos poluição. Projetado para o planeta.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h4>Eficiência energética</h4>
+        <p>Otimização do uso de energia; fontes renováveis.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h4>Responsabilidade social</h4>
+        <p>Comunidades respeitadas, trabalho digno, inclusão.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h4>Cadeia sustentável</h4>
+        <p>Fornecedores éticos, rastreabilidade, impacto positivo.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌱</div>
+        <h4>Tecnologias verdes</h4>
+        <p>Energia limpa, processos de baixo carbono.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <h4>Ciclo de vida</h4>
+        <p>Do berço ao berço: durável, reparável, reciclável.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <h4>Viabilidade financeira</h4>
+        <p>Sustentável no bolso: escala, lucro, perpetuidade.</p>
+      </div>
+    </div>
+    <!-- pill resumo -->
+    <div class="sust-circle fade-in">
+      <span class="pill">🔋 Eficiência</span>
+      <span class="pill">🧩 Economia circular</span>
+      <span class="pill">⚖️ Justiça social</span>
+      <span class="pill">📋 Transparência</span>
+      <span class="pill">🧪 Inovação aberta</span>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3: MANUAL DE OSLO - coração do conteúdo -->
+  <section style="background: rgba(14,165,233,0.02); border-radius: 2.5rem; padding: 3rem 2rem;">
+    <h2 class="section-title fade-in">📘 Manual de Oslo – 4ª Edição (2018)</h2>
+    <div class="fade-in">
+      <p style="font-size: 1.2rem; max-width: 900px;">Referência global da OCDE para <strong>medir, interpretar e comparar</strong> inovação. Mais que um guia: a bússola da inovação para empreendedores, governos e pesquisadores.</p>
+    </div>
+
+    <!-- timeline resumida -->
+    <div class="timeline-manual fade-in">
+      <span class="timeline-node">📆 1992 – 1ª ed.</span>
+      <span style="color: var(--muted);"><i class="fas fa-arrow-right"></i></span>
+      <span class="timeline-node">📆 1995 – Guia revisado</span>
+      <span style="color: var(--muted);"><i class="fas fa-arrow-right"></i></span>
+      <span class="timeline-node">📆 2005 – 3ª ed.</span>
+      <span style="color: var(--muted);"><i class="fas fa-arrow-right"></i></span>
+      <span class="timeline-node" style="background: var(--primary); color: black; border-color: white;">📆 2018 – 4ª ed. (atual)</span>
+    </div>
+
+    <!-- OS 4 TIPOS DE INOVAÇÃO (grid icônico) -->
+    <h3 style="margin: 2.5rem 0 1rem 0; color: var(--primary-light);"><i class="fas fa-tags"></i> Tipos de Inovação (Manual de Oslo)</h3>
+    <div class="innovation-types fade-in">
+      <div class="type-card">
+        <div class="type-icon"><i class="fas fa-box"></i></div>
+        <h4>Inovação de Produto</h4>
+        <p style="font-size: 0.9rem; opacity: 0.9;">Bem ou serviço novo ou significativamente melhorado.</p>
+      </div>
+      <div class="type-card">
+        <div class="type-icon"><i class="fas fa-cogs"></i></div>
+        <h4>Inovação de Processo</h4>
+        <p style="font-size: 0.9rem;">Métodos de produção/distribuição novos ou aprimorados.</p>
+      </div>
+      <div class="type-card">
+        <div class="type-icon"><i class="fas fa-sitemap"></i></div>
+        <h4>Inovação Organizacional</h4>
+        <p style="font-size: 0.9rem;">Práticas de negócios, local de trabalho, relações externas.</p>
+      </div>
+      <div class="type-card">
+        <div class="type-icon"><i class="fas fa-chart-line"></i></div>
+        <h4>Inovação de Marketing</h4>
+        <p style="font-size: 0.9rem;">Design, embalagem, promoção, preço, distribuição.</p>
+      </div>
+    </div>
+
+    <!-- Por que o manual é importante? -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem;" class="fade-in">
+      <div style="background: rgba(0,0,0,0.25); padding: 1.8rem; border-radius: 1.5rem;">
+        <h4 style="color: var(--secondary);"><i class="fas fa-star"></i> Importância global</h4>
+        <ul style="margin-top: 1rem; list-style: none;">
+          <li style="margin-bottom: 0.7rem;">🔹 Padronização de definições → comparabilidade</li>
+          <li style="margin-bottom: 0.7rem;">🔹 Comparações internacionais de inovação</li>
+          <li style="margin-bottom: 0.7rem;">🔹 Base para políticas públicas de CT&I</li>
+          <li style="margin-bottom: 0.7rem;">🔹 Orientação para empresas e startups</li>
+          <li style="margin-bottom: 0.7rem;">🔹 Fomento à pesquisa acadêmica</li>
+          <li style="margin-bottom: 0.7rem;">🔹 Monitoramento do progresso inovador</li>
+        </ul>
+      </div>
+      <div style="background: rgba(16,185,129,0.08); padding: 1.8rem; border-radius: 1.5rem; border-left: 4px solid var(--tertiary);">
+        <h4 style="color: var(--tertiary);"><i class="fas fa-bullseye"></i> Manual & Empreendedorismo</h4>
+        <ul style="margin-top: 1rem; list-style: none;">
+          <li style="margin-bottom: 0.7rem;">📌 Mede desempenho inovador em startups</li>
+          <li style="margin-bottom: 0.7rem;">📌 Comparabilidade com concorrentes</li>
+          <li style="margin-bottom: 0.7rem;">📌 Decisões estratégicas baseadas em dados</li>
+          <li style="margin-bottom: 0.7rem;">📌 Avaliação de políticas de fomento</li>
+          <li style="margin-bottom: 0.7rem;">📌 Base para pesquisas em empreendedorismo</li>
+        </ul>
+        <p style="margin-top: 1rem; font-style: italic; color: var(--muted);">"O empreendedor que mede, evolui."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 4: EDIÇÕES + EVOLUÇÃO (interativo) -->
+  <section>
+    <h2 class="section-title fade-in">📚 Edições do Manual</h2>
+    <div class="edition-selector fade-in" id="editionContainer">
+      <button class="edition-btn active" data-edition="1">1992/95</button>
+      <button class="edition-btn" data-edition="2">2005 (3ª ed.)</button>
+      <button class="edition-btn" data-edition="3">2018 (4ª ed.)</button>
+    </div>
+    <div id="editionDisplay" class="card fade-in" style="max-width: 800px; margin: 0 auto; text-align: center; min-height: 200px; display: flex; flex-direction: column; justify-content: center;">
+      <!-- JS preenche -->
+      <p style="font-size: 1.2rem;" id="editionText">Primeira edição focada em inovação tecnológica e P&D industrial. Base para pesquisas de inovação.</p>
+      <span style="color: var(--primary); margin-top: 1rem;">Clique nas edições acima para detalhes</span>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 5: DIAGNÓSTICO DE INOVAÇÃO SUSTENTÁVEL (gamificação / checklist) -->
+  <section>
+    <h2 class="section-title fade-in">🧪 Diagnóstico: sua startup é Oslo+Verde?</h2>
+    <div class="diagnostic-card fade-in">
+      <p style="margin-bottom: 1.5rem;">Responda às perguntas baseadas nos tipos de inovação do Manual e nos princípios da sustentabilidade.</p>
+      
+      <div style="margin-bottom: 1.8rem;">
+        <label style="display: flex; justify-content: space-between;"><span>📦 Inovação de produto com baixo impacto ambiental?</span> <span id="prodValue">50%</span></label>
+        <div class="slider-container">
+          <input type="range" id="prodSlider" min="0" max="100" value="60" style="width: 100%;">
+        </div>
+      </div>
+      <div style="margin-bottom: 1.8rem;">
+        <label style="display: flex; justify-content: space-between;"><span>⚙️ Inovação de processo para economia circular?</span> <span id="procValue">40%</span></label>
+        <input type="range" id="procSlider" min="0" max="100" value="40" style="width: 100%;">
+      </div>
+      <div style="margin-bottom: 1.8rem;">
+        <label style="display: flex; justify-content: space-between;"><span>🏢 Inovação organizacional (diversidade, transparência)?</span> <span id="orgValue">70%</span></label>
+        <input type="range" id="orgSlider" min="0" max="100" value="70" style="width: 100%;">
+      </div>
+      <div style="margin-bottom: 1.8rem;">
+        <label style="display: flex; justify-content: space-between;"><span>📢 Inovação em marketing sustentável (selos, propósito)?</span> <span id="mktValue">35%</span></label>
+        <input type="range" id="mktSlider" min="0" max="100" value="35" style="width: 100%;">
+      </div>
+
+      <button class="btn" id="calcScore" style="width: 100%; margin-top: 1rem;">📊 Calcular Índice de Inovação Sustentável</button>
+      
+      <div id="scoreResult" style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,0,0,0.3); border-radius: 1rem; display: none;">
+        <h4>Seu score: <span id="scoreValue">0</span>%</h4>
+        <div class="progress-bar-bg" style="margin: 1rem 0;">
+          <div id="scoreBar" class="progress-fill" style="width: 0%;"></div>
+        </div>
+        <p id="scoreFeedback"></p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Baseado nas 4 categorias do Manual de Oslo + critérios de sustentabilidade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 6: CASOS DE INOVAÇÃO SUSTENTÁVEL (inspiração) -->
+  <section>
+    <h2 class="section-title fade-in">🌟 Cases: Empreendedores que unem Oslo e sustentabilidade</h2>
+    <div class="grid fade-in">
+      <div class="card" style="border-bottom: 4px solid var(--tertiary);">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🌊</div>
+        <h3>OceanPact + inovação de processo</h3>
+        <p>Solução de recuperação de óleo com menor consumo químico. Inovação de processo documentada sob diretrizes Oslo, redução de 30% resíduos.</p>
+      </div>
+      <div class="card" style="border-bottom: 4px solid var(--primary);">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧱</div>
+        <h3>Construção circular (startup)</h3>
+        <p>Tijolos de resíduos plásticos – inovação de produto. Atende demanda social (moradia) e reduz lixo. Aplicou métricas do Manual para captar investimento.</p>
+      </div>
+      <div class="card" style="border-bottom: 4px solid var(--secondary);">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
+        <h3>BeToken – inovação organizacional</h3>
+        <p>Blockchain para rastrear cadeia sustentável na moda. Modelo de governança horizontal, inovação em relações externas (fornecedores).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 7: MANUAL DE OSLO NA PRÁTICA – guia rápido para empreendedor -->
+  <section style="background: rgba(245,158,11,0.05); border-radius: 2rem; padding: 2.5rem;">
+    <h2 class="section-title fade-in">🎯 Como usar o Manual de Oslo no seu negócio</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+      <div style="flex: 1; min-width: 200px;">
+        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.8rem;">
+          <span style="background: var(--primary); color: black; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">1</span>
+          <strong>Classifique sua inovação</strong> – produto, processo, organizacional ou marketing.
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.8rem;">
+          <span style="background: var(--primary); color: black; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">2</span>
+          <strong>Meça indicadores</strong> – P&D, patentes, adoção, eficiência.
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <span style="background: var(--primary); color: black; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">3</span>
+          <strong>Compare benchmarks</strong> – use dados setoriais.
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.8rem;">
+          <span style="background: var(--secondary); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">4</span>
+          <strong>Relate transparência</strong> – atraia investidores e clientes.
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.8rem;">
+          <span style="background: var(--secondary); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">5</span>
+          <strong>Políticas públicas</strong> – participe de editais de inovação.
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <span style="background: var(--secondary); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">6</span>
+          <strong>Repense o modelo</strong> – inovação sustentável como estratégia.
+        </div>
+      </div>
+    </div>
+    <p style="text-align: center; margin-top: 2.5rem; font-style: italic;">"O empreendedor que inova sustentavelmente e documenta segundo o Manual de Oslo está construindo vantagem competitiva de longo prazo."</p>
+  </section>
+
+  <!-- SEÇÃO 8: CHECKLIST FINAL - implementação -->
+  <section>
+    <h2 class="section-title fade-in">✅ Checklist: empreendedor orientado pelo Manual de Oslo</h2>
+    <div class="card fade-in" style="max-width: 900px; margin: 0 auto;">
+      <div id="osloChecklist">
+        <!-- via JS -->
+      </div>
+      <button class="btn" id="exportReport" style="margin-top: 2rem; width: 100%;">
+        <i class="fas fa-file-alt"></i> Gerar Relatório de Inovação Sustentável
+      </button>
+      <div id="osloReport" style="margin-top: 2rem; display: none; background: rgba(0,0,0,0.4); padding: 1.8rem; border-radius: 1.5rem;"></div>
+    </div>
+  </section>
+
+  <footer style="text-align: center; padding: 3rem 1rem; border-top: 1px solid rgba(14,165,233,0.2);">
+    <p style="font-size: 1rem; max-width: 700px; margin: 0 auto;">
+      <strong>Tema 04 – Manual de Oslo na Promoção de Práticas Responsáveis</strong><br>
+      Empreendedorismo | Inovação Sustentável | OCDE
+    </p>
+    <p style="margin-top: 1.5rem; opacity: 0.7; font-size: 0.85rem;">
+      "Inovar não é apenas criar o novo, mas criar o novo que sustenta a vida."
+    </p>
+  </footer>
+
+  <script>
+    // partículas
+    function initParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        let size = Math.random() * 6 + 1;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 15 + 's';
+        p.style.animationDuration = Math.random() * 20 + 15 + 's';
+        p.style.background = i % 3 === 0 ? '#0ea5e9' : (i % 3 === 1 ? '#f59e0b' : '#10b981');
+        container.appendChild(p);
+      }
+    }
+
+    // animações scroll
+    function initAnim() {
+      const els = document.querySelectorAll('.fade-in');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+      }, {threshold: 0.15});
+      els.forEach(el => obs.observe(el));
+    }
+
+    // Manual de Oslo - interação edições
+    function initEditions() {
+      const buttons = document.querySelectorAll('.edition-btn');
+      const displayText = document.getElementById('editionText');
+      
+      const editionsData = {
+        1: '📘 1992/95 – Ênfase em inovação tecnológica, P&D industrial, setor manufatureiro. Definições restritas. Útil para primeiras pesquisas nacionais de inovação.',
+        2: '📗 2005 (3ª ed.) – Amplia para serviços, inovação organizacional e de marketing. Coleta mais abrangente. Inclusão de países não-OCDE.',
+        3: '📕 2018 (4ª ed.) – Atual! Foco em economia do conhecimento, inovação digital, modelos de negócio, e externalidades. Aborda inovação sustentável e impactos. Essencial para empreendedores modernos.'
+      };
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          buttons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const ed = this.dataset.edition;
+          displayText.innerText = editionsData[ed];
+        });
+      });
+    }
+
+    // sliders do diagnóstico + cálculo
+    function initSliders() {
+      const prod = document.getElementById('prodSlider');
+      const proc = document.getElementById('procSlider');
+      const org = document.getElementById('orgSlider');
+      const mkt = document.getElementById('mktSlider');
+
+      function updateLabels() {
+        document.getElementById('prodValue').innerText = prod.value + '%';
+        document.getElementById('procValue').innerText = proc.value + '%';
+        document.getElementById('orgValue').innerText = org.value + '%';
+        document.getElementById('mktValue').innerText = mkt.value + '%';
+      }
+
+      prod.addEventListener('input', updateLabels);
+      proc.addEventListener('input', updateLabels);
+      org.addEventListener('input', updateLabels);
+      mkt.addEventListener('input', updateLabels);
+      updateLabels();
+
+      // botão calcular
+      document.getElementById('calcScore').addEventListener('click', function() {
+        let p = parseInt(prod.value);
+        let pr = parseInt(proc.value);
+        let o = parseInt(org.value);
+        let m = parseInt(mkt.value);
+        let avg = (p + pr + o + m) / 4;
+        document.getElementById('scoreValue').innerText = avg.toFixed(1);
+        document.getElementById('scoreBar').style.width = avg + '%';
+        document.getElementById('scoreResult').style.display = 'block';
+
+        let feedback = '';
+        if (avg >= 70) feedback = '🎉 Excelente! Você está alinhado com inovação sustentável e diretrizes do Manual de Oslo.';
+        else if (avg >= 45) feedback = '📊 Bom caminho. Invista mais em inovação de processo e produto com baixo carbono.';
+        else feedback = '🌱 Comece agora! Use o Manual para estruturar suas inovações com propósito sustentável.';
+        document.getElementById('scoreFeedback').innerText = feedback;
+      });
+    }
+
+    // checklist (10 itens baseados no Manual + sustentabilidade)
+    function initChecklist() {
+      const items = [
+        'Identifico claramente se minha inovação é de produto, processo, organizacional ou marketing (Manual de Oslo).',
+        'Mensuro esforços em P&D e atividades inovadoras.',
+        'Comparo meu desempenho inovador com concorrentes/benchmarks.',
+        'Utilizo dados de inovação para decisões estratégicas.',
+        'Incorporo princípios de sustentabilidade (ambiental/social) em novos produtos/serviços.',
+        'Possuo processos que reduzem resíduos ou consomem menos energia.',
+        'Práticas organizacionais promovem diversidade, transparência e ética.',
+        'Marketing comunica atributos sustentáveis de forma autêntica.',
+        'Acompanho políticas públicas e editais de inovação.',
+        'Meu negócio gera impacto positivo mensurável na sociedade/planeta.'
+      ];
+
+      let html = '';
+      items.forEach((txt, idx) => {
+        html += `<div style="display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 1rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border-radius: 0.8rem;">
+          <input type="checkbox" id="c${idx}" style="transform: scale(1.2);">
+          <label for="c${idx}">${txt}</label>
+        </div>`;
+      });
+      document.getElementById('osloChecklist').innerHTML = html;
+
+      // Botão gerar relatório
+      document.getElementById('exportReport').addEventListener('click', function() {
+        let checkboxes = document.querySelectorAll('#osloChecklist input[type="checkbox"]');
+        let checked = 0;
+        checkboxes.forEach(cb => { if(cb.checked) checked++; });
+        let percent = (checked / 10) * 100;
+
+        let reportDiv = document.getElementById('osloReport');
+        reportDiv.style.display = 'block';
+        let recomendacao = '';
+        if (percent >= 80) recomendacao = 'Você é um empreendedor de vanguarda: inovação medida e sustentável.';
+        else if (percent >= 50) recomendacao = 'Bons alicerces. Fortaleça as lacunas em inovação organizacional e marketing.';
+        else recomendacao = 'Priorize a estruturação da inovação. Use o Manual de Oslo como roteiro.';
+
+        reportDiv.innerHTML = `<h4>📋 Relatório de Maturidade em Inovação (base Oslo)</h4>
+          <p>Itens atendidos: ${checked}/10 (${percent}%)</p>
+          <div class="progress-bar-bg" style="margin:1rem0;"><div class="progress-fill" style="width:${percent}%;"></div></div>
+          <p><strong>Feedback:</strong> ${recomendacao}</p>
+          <p style="margin-top:1rem;">Manual de Oslo 4ª ed. recomenda: mensurar, comparar, evoluir.</p>`;
+      });
+    }
+
+    window.onload = function() {
+      initParticles();
+      initAnim();
+      initEditions();
+      initSliders();
+      initChecklist();
+    };
+  </script>
+</body>
+</html>
